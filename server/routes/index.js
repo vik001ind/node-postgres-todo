@@ -84,12 +84,13 @@ router.put('/api/v1/todos/:todo_id', function(req, res) {
 
     // Grab data from http request
     var data = {text: req.body.text, complete: req.body.complete};
+    console.log("Debug:" + data.text + " " + data.complete);
 
     // Get a Postgres client from the connection pool
     pg.connect(connectionString, function(err, client, done) {
 
         // SQL Query > Update Data
-        client.query("UPDATE items SET text=($1), complete=($2) WHERE id=($3)", [data.text, data.complete, id]);
+        client.query("UPDATE items SET text=($1), complete=($2) WHERE id=($3)", [ data.text, data.complete, id]);
 
         // SQL Query > Select Data
         var query = client.query("SELECT * FROM items ORDER BY id ASC");
@@ -150,6 +151,7 @@ router.delete('/api/v1/todos/:todo_id', function(req, res) {
     });
 
 });
+
 
 
 module.exports = router;

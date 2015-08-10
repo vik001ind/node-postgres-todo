@@ -4,6 +4,13 @@ angular.module('nodeTodo', [])
 
     $scope.formData = {};
     $scope.todoData = {};
+    $scope.actions = [
+    "true",
+    "false"
+  ];
+    $scope.choice = false;
+   
+
 
     // Get all todos
     $http.get('/api/v1/todos')
@@ -39,6 +46,33 @@ angular.module('nodeTodo', [])
                 console.log('Error: ' + data);
             });
     };
+
+    // update assignment 
+    $scope.updateAssign = function(todoID, text, choice) {
+	if (String(choice) == "true") {
+	    $scope.choice = true;
+	}
+	else {
+	    $scope.choice = false;
+	}  
+	console.log('Debug1:' + text + ' ' + choice); 
+        $http.put('/api/v1/todos/' + todoID, {text: text, complete: $scope.choice})
+            .success(function(data) {
+                $scope.todoData = data;
+                console.log(data);
+            })
+            .error(function(data) {
+                console.log('Error: ' + data);
+            });
+    };
+
+    /* testing 
+    $scope.doSomething = function(choice) {
+    switch(choice) {
+
+    }
+};*/
+
 
 });
 
