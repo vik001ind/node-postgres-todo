@@ -55,7 +55,7 @@ angular.module('nodeTodo', [])
 	else {
 	    $scope.choice = false;
 	}  
-	console.log('Debug1:' + text + ' ' + choice); 
+//	console.log('Debug1:' + text + ' ' + choice); 
         $http.put('/api/v1/todos/' + todoID, {text: text, complete: $scope.choice})
             .success(function(data) {
                 $scope.todoData = data;
